@@ -1,4 +1,3 @@
-/* eslint-disable sonarjs/cognitive-complexity */
 const { employees } = require('../data/zoo_data');
 
 const e = employees;
@@ -13,15 +12,20 @@ function isManager(id) {
   }
   return b;
 }
+function managerIncludes(managerId) {
+  const result = [];
+  e.forEach((element) => {
+    if (managerId.includes(element.managers) && element.managers.length !== 0) {
+      result.push(`${element.firstName} ${element.lastName}`);
+    }
+  });
+  return result;
+}
 
 function getRelatedEmployees(managerId) {
-  const result = [];
+  let result = [];
   if (isManager(managerId) === true) {
-    e.forEach((element) => {
-      if (managerId.includes(element.managers) && element.managers.length !== 0) {
-        result.push(`${element.firstName} ${element.lastName}`);
-      }
-    });
+    result = managerIncludes(managerId);
   } else {
     throw new Error('O id inserido não é de uma pessoa colaboradora gerente!');
   }
