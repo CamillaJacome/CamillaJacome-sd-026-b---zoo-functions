@@ -1,4 +1,4 @@
-const { employees } = require('../data/zoo_data');
+// const { employees } = require('../data/zoo_data');
 const data = require('../data/zoo_data');
 
 const stephanieId = '9e7d4524-363c-416a-8759-8aa7e50c0992';
@@ -8,28 +8,13 @@ const olaId = 'fdb2543b-5662-46a7-badc-93d960fdc0a8';
 
 function isManager(id) {
   // seu código aqui
-  const busca = employees.some((p) => id.includes(p.managers) && p.managers.length > 0);
-  return busca;
+  // const busca = employees.some((p) => (id.includes(p.managers) || id.includes(p.managers[1])) && p.managers.length > 0);
+  // return busca;
 }
 
 function getRelatedEmployees(managerId) {
-  const funcionarios = [];
-  if (isManager(managerId) === false) {
-    throw new Error('O id inserido não é de uma pessoa colaboradora gerente!');
-  }
-  try {
-    data.funcionarios.forEach((element) => {
-      if (managerId.includes(element.managers) && element.managers.length > 0) {
-        // console.log(element.firstName);
-        funcionarios.push(`${element.firstName} ${element.lastName}`);
-      }
-    });
-    return funcionarios;
-  } catch (err) {
-    console.log(err.message);
-  }
+
 }
 console.log(isManager(stephanieId));
 console.log(isManager(olaId));
-// console.log(isManager('4b40a139-d4dc-4f09-822d-ec25e819a5ad'));
 module.exports = { isManager, getRelatedEmployees };
