@@ -1,20 +1,31 @@
-// const { employees } = require('../data/zoo_data');
-const data = require('../data/zoo_data');
+/* eslint-disable sonarjs/cognitive-complexity */
+const { employees } = require('../data/zoo_data');
 
-const stephanieId = '9e7d4524-363c-416a-8759-8aa7e50c0992';
-const olaId = 'fdb2543b-5662-46a7-badc-93d960fdc0a8';
-// const burlId = '0e7b460e-acf4-4e17-bcb3-ee472265db83';
-// const managers = [stephanieId, olaId, burlId];
+const e = employees;
+const data = require('../data/zoo_data');
 
 function isManager(id) {
   // seu código aqui
-  // const busca = employees.some((p) => (id.includes(p.managers) || id.includes(p.managers[1])) && p.managers.length > 0);
-  // return busca;
+  const b = e.some((p) => id.includes(p.managers && p.managers[0]) && p.managers.length > 0);
+  if (b === false) {
+    const b2 = e.some((p) => (id.includes(p.managers[1])) && p.managers.length > 0);
+    return b2;
+  }
+  return b;
 }
 
 function getRelatedEmployees(managerId) {
-
+  const result = [];
+  if (isManager(managerId) === true) {
+    e.forEach((element) => {
+      if (managerId.includes(element.managers) && element.managers.length !== 0) {
+        result.push(`${element.firstName} ${element.lastName}`);
+      }
+    });
+  } else {
+    throw new Error('O id inserido não é de uma pessoa colaboradora gerente!');
+  }
+  return result;
 }
-console.log(isManager(stephanieId));
-console.log(isManager(olaId));
+
 module.exports = { isManager, getRelatedEmployees };
